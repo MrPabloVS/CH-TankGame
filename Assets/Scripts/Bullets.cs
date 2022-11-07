@@ -28,7 +28,7 @@ public class Bullets : MonoBehaviour
         transform.position += Direction * Speed * Time.deltaTime;
     }
 
-     private void OnTriggerEnter(Collider other) {
+     private void OnCollisionEnter(Collision other) {
        
         if (other.gameObject.tag == "Wall")
         {
