@@ -1,15 +1,17 @@
-using System.Numerics;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoobyTrap : MonoBehaviour
+public class StartLine : MonoBehaviour
 {
     public float maxDistance = 50f;
     public LayerMask layerToCollide;
     public UnityEngine.Vector3 direction;
     public GameObject salida;
     private bool Active = true;
+    public static float timer = 0f;
+    bool startTimer = false;
 
 
     // Start is called before the first frame update
@@ -22,6 +24,7 @@ public class BoobyTrap : MonoBehaviour
     void Update()
     {
         Raycast();
+        updateTimer();
     }
 
     private void Raycast()
@@ -38,8 +41,10 @@ public class BoobyTrap : MonoBehaviour
         if (Physics.Raycast(salida.transform.position, direction, out hit, Mathf.Infinity, layerToCollide) && Active)
         {
             Debug.DrawRay(salida.transform.position, direction * hit.distance, Color.yellow);
-            Debug.Log(hit.collider);
+            Debug.Log("Timer Start");
             Active = false;
+            startTimer = true;
+
         }
         else
         {
@@ -50,5 +55,11 @@ public class BoobyTrap : MonoBehaviour
 
     }
 
-
+    void updateTimer()
+    {
+        if (startTimer)
+        {
+            timer += Time.deltaTime;
+        }
+    }
 }
